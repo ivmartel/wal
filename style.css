@@ -1,0 +1,21 @@
+body {
+    font-family: 'Verdana', sans-serif;
+}
+#main {
+    background: #336699;
+}
+.box {
+    background: #ffcc66;
+    border: 2px solid FireBrick;
+    border-radius: 25px;
+}
+#clock {
+    font-family: 'Abel', sans-serif;
+    margin: 10px; padding: 5px;
+    font-size: 300%;
+    text-align: center;
+}
+#alarm, #alarm-set {
+    margin: 10px; padding: 5px;
+    text-align: center;
+}
