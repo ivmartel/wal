@@ -28,12 +28,13 @@ wal.getQueryParams = function (qs) {
     qs = qs.split("+").join(" ");
 
     var params = {};
-    var tokens;
     var re = /[?&]?([^=]+)=([^&]*)/g;
 
-    while ( tokens = re.exec(qs) ) {
-        params[decodeURIComponent(tokens[1])]
-            = decodeURIComponent(tokens[2]);
+    var tokens = re.exec(qs);
+    while ( tokens ) {
+        params[ decodeURIComponent(tokens[1]) ] =
+            decodeURIComponent(tokens[2]);
+        tokens = re.exec(qs);
     }
 
     return params;
@@ -60,7 +61,7 @@ wal.Clock = function (divId)
     this.start = function () {
         // setup timer
         _timer = setInterval( function () {
-            _self.show()
+            _self.show();
             }, 1000 );
         // first show
         this.show();
@@ -120,7 +121,7 @@ wal.Alarm = function (time, action)
     this.verify = function () {
         var now = new Date();
         if ( time instanceof Date &&
-            time.getTime() != 0 &&
+            time.getTime() !== 0 &&
             time.getTime() > now.getTime() ) {
             return true;
         }
@@ -130,7 +131,7 @@ wal.Alarm = function (time, action)
     // Check the input date and call action if equal.
     this.check = function (date) {
         // compare input to member (ignore milliseconds)
-        if ( time && typeof time.getTime != "undefined" && time.getTime() != 0 &&
+        if ( time && typeof time.getTime != "undefined" && time.getTime() !== 0 &&
             Math.abs(time.getTime() - date.getTime()) < 1000 ) {
             return action.run();
         }
@@ -145,7 +146,7 @@ wal.Alarm = function (time, action)
         var text = "Alarm set for " +
             wal.prettyTime(time.getHours()) + "h" +
             wal.prettyTime(time.getMinutes()) +
-            " with action to " + action.getText() + "."
+            " with action to " + action.getText() + ".";
         div.appendChild( document.createTextNode(text) );
     };
 };
@@ -156,9 +157,9 @@ wal.OpenUrlAction = function (url)
     // Get the text description of the action.
     this.getText = function () {
         return "open url: " + url;
-    }
+    };
     // Run the action.
     this.run = function () {
         window.location = url;
-    }
+    };
 };
