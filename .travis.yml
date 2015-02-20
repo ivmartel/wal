@@ -4,7 +4,7 @@ node_js:
 
 env:
   global:
-    - secure: gCMw/wHTBwbo9PKQMzW/DgGYa3M4iMtEWnDy8YKiBrtRyWFm66wkbJndRFIf3p4P2L4hlLoTISzBuemGTupGIWRq7urmA2C2lSL5Y05jL1Lfq+HI0zYsWZFWGVUQDLMPVxyW1fEOCZAUEfpUpd9qv4E6HsUt0CgqiBj2I0NniUQ=
+    - secure: TTxNXSIAZ/cC4fv3pnGAsUb6wnwd/egR76FPj2KP59BQC/niZw32qDLNVl36EmwOd0KZW1wgoZ2FMWkANtcdgHSqjECU4HbF9LKlZG7nf63AFdUdulmnBCMjiUmq6BxMGDWhaMY+dTEGnjgro8Qz1Y33SFHYFw9uLWLM7YPbKNU=
 
 after_success:
   - chmod +x ./resources/update-gh-pages.sh
