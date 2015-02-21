@@ -2,13 +2,11 @@
  * Tests for the 'alarm.js' file.
  */
 // Do not warn if these variables were not defined before.
-/* global module, test, deepEqual */
+/* global module, test, ok */
 module("alarm");
 
-test("Test getQueryParams.", function() {
-    // query string
-    var qs = "?a=0&b=1";
-    var params = wal.getQueryParams(qs);
-    var theo = { "a": "0", "b": "1" };
-    deepEqual(params, theo, "getQueryParams test.");
+test("Test alarm verify.", function () {
+    // bad alarm
+    var alarm0 = new wal.Alarm(null, null);
+    ok(!alarm0.verify(), "Bad alarm should fail verification.");
 });
