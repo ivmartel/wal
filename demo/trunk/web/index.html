@@ -1,16 +1,17 @@
 <html>
 <head>
 <title>Web Alarm</title>
-
+<!-- meta -->
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes" />
-
+<!-- style -->
 <link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Abel' >
 <link type='text/css' rel='stylesheet' href='style.css'>
 <link type='text/css' rel='stylesheet' href='../ext/jquery-mobile/jquery.mobile-1.4.5.min.css'>
-
+<!-- third party -->
 <script type="text/javascript" src="../ext/jquery/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="../ext/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+<!-- local -->
 <script type="text/javascript" src="../wal-0.0.1beta.min.js"></script>
 
 <script type="text/javascript">
@@ -43,39 +44,7 @@ $(document).ready( function()
         var alarmSetDiv = document.getElementById("alarm-set");
         alarmSetDiv.style.display = 'block';
         // suggestions
-        $.getJSON('suggest.json', function (json) {
-            // check keys
-            var keys = Object.keys(json);
-            if ( keys.length === 0 ) {
-                return;
-            }
-            // html select
-            var select = document.createElement("select");
-            select.id = "alarm-suggest";
-            // first select option
-            var option = document.createElement("option");
-            option.value = "choose-one";
-            option.appendChild( document.createTextNode("Choose one...") );
-            select.appendChild(option);
-            // select options
-            for ( var i = 0; i < keys.length; ++i ) {
-                option = document.createElement("option");
-                option.value = json[keys[i]].url;
-                option.appendChild( document.createTextNode(json[keys[i]].title) );
-                select.appendChild(option);
-            }
-            // contain div
-            var div = document.getElementById("alarm-suggest-contain");
-            // select label
-            var label = document.createElement("label");
-            label.for = "alarm-suggest";
-            label.appendChild( document.createTextNode("Suggestions:") );
-            div.appendChild(label);
-            // append select
-            div.appendChild(select);
-            // trigger creation
-            $("#alarm-suggest-contain").trigger("create");
-        });
+        wal.showSuggestions("suggest.json", "alarm-suggest-contain");
         // setup button
         var button = document.getElementById("add-alarm");
         button.onclick = function () {
