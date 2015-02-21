@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Web Alarm</title>
 <!-- meta -->
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes" />
 <!-- style -->
@@ -28,7 +30,8 @@ $(document).ready( function()
     if ( Object.keys(params).length != 0 ) {
         // create alarm
         var action = new wal.OpenUrlAction(params.url);
-        var alarm = new wal.Alarm( wal.time2Date(params.time), action);
+        var alarmDate = wal.time2Date(params.time);
+        var alarm = new wal.Alarm( alarmDate, action);
         // verify alarm
         if ( alarm.verify() ) {
             // add alarm to clock
@@ -48,22 +51,40 @@ $(document).ready( function()
         // setup button
         var button = document.getElementById("add-alarm");
         button.onclick = function () {
-            // create alarm to check its validity
+            // alarm details
             var alarmUrl = document.getElementById("alarm-url").value;
-            if ( !alarmUrl ) {
-                var select = document.getElementById("alarm-suggest");
+            var select = document.getElementById("alarm-suggest");
+            if ( !alarmUrl && select ) {
                 alarmUrl = select.options[select.selectedIndex].value;
             }
             var action = new wal.OpenUrlAction(params.url);
             var alarmTime = document.getElementById("alarm-time").value;
-            var alarm = new wal.Alarm( wal.time2Date(alarmTime), action);
-            // verify alarm
-            if ( alarm.verify() ) {
-                // open a new page with GET parameters to setup the alarm
-                var url = "index.html?" +
-                    "time=" + encodeURIComponent(alarmTime) +
-                    "&url=" + encodeURIComponent(alarmUrl);
-                window.open(url, '_blank');
+            var alarmDate = wal.time2Date(alarmTime);
+            // what kind of alarm do we have...
+            if ( navigator.mozAlarms ) {
+                console.log("Moz alarm...");
+                var request = navigator.mozAlarms.add(alarmDate, "ignoreTimezone", action);
+                var alarmId = null;
+                request.onsuccess = function () {
+                    alarmId = this.result;
+                };
+                request.onerror = function () {
+                    console.log("An error occurred: " + this.error.name);
+                };
+            }
+            else {
+                console.log("Basic alarm...");
+                // create alarm to check its validity
+                var alarm = new wal.Alarm( alarmDate, action);
+                // verify alarm
+                if ( alarm.verify() ) {
+                    // open a new page with GET parameters to setup the alarm
+                    var url = "index.html?" +
+                        "time=" + encodeURIComponent(alarmTime) +
+                        "&url=" + encodeURIComponent(alarmUrl);
+                    window.open(url, '_blank');
+                }
+
             }
         };
     }
