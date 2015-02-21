@@ -19,7 +19,7 @@
     "classitems": [
         {
             "file": "src/alarm.js",
-            "line": 107,
+            "line": 4,
             "description": "Alarm.\nPossible actions:\n- Simplest that works:\n  window.location = alarmUrl;\n- Will be blocked as pop-up:\n  window.open(alarmUrl, '_blank');\n- Needs same origin:\n  var iframe = document.getElementById(\"alarm-iframe\");\n  iframe.src = alarmUrl;",
             "class": ""
         }
@@ -27,7 +27,7 @@
     "warnings": [
         {
             "message": "Missing item type\nAlarm.\nPossible actions:\n- Simplest that works:\n  window.location = alarmUrl;\n- Will be blocked as pop-up:\n  window.open(alarmUrl, '_blank');\n- Needs same origin:\n  var iframe = document.getElementById(\"alarm-iframe\");\n  iframe.src = alarmUrl;",
-            "line": " src/alarm.js:107"
+            "line": " src/alarm.js:4"
         }
     ]
 }
